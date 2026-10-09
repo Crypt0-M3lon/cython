@@ -63,7 +63,7 @@ jobs:
 
   ci-early:
     needs: [file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
       fail-fast: false
@@ -121,7 +121,7 @@ jobs:
 
   ci-all:
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -184,7 +184,7 @@ jobs:
   ci-arm64:
     # ARM builds
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -204,7 +204,7 @@ jobs:
 
   ci-32bit:
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     uses: ./.github/workflows/ci-job.yml
     with:
@@ -220,7 +220,7 @@ jobs:
   ci-typespecs:
     # compile with typespecs
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -245,7 +245,7 @@ jobs:
   ci-sharedmodule:
     # compile with shared utility module
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -269,7 +269,7 @@ jobs:
   ci-compileall:
     # compile all modules
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -293,7 +293,7 @@ jobs:
   ci-stdc:
     # GCC/clang with broad language standards
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -339,7 +339,7 @@ jobs:
   ci-lapi:
     # Limited API tests
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
@@ -388,7 +388,7 @@ jobs:
   ci-noncpython:
     # PyPy, GraalPython, ...
     needs: [ci-early-success, file-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag' }}
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.file-changes.outputs.ci-changes == 'true' || github.ref_type == 'tag') }}
 
     strategy:
       # Allows for matrix sub-jobs to fail without canceling the rest
